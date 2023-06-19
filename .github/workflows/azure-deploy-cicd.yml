@@ -33,12 +33,13 @@ jobs:
 
       - name: azure deployment
         run: |
-             cd src/Bicep
-             ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
-
+             
              az group create --name AKSBicepRg --location EastUS
           
              az keyvault create --name MyBicep54Kv --resource-group AKSBicepRg --location EastUS
+
+             cd src/Bicep
+             ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
 
              az keyvault secret set --name bicepsecretName --vault-name MyBicep54Kv --file mySSHKey.pub --encoding base64
 
