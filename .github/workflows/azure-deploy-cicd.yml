@@ -44,7 +44,7 @@ jobs:
 
              $sshRSAPublicKey= az keyvault secret show --name bicepsecretName --vault-name MyBicep54Kv --query value -o tsv
 
-             az deployment group create --resource-group AKSBicepRg --template-file Azure_AKS.bicep --parameters sshRSAPublicKey="$sshRSAPublicKey"
+             az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep --parameters sshRSAPublicKey="$sshRSAPublicKey"
 
             
 
