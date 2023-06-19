@@ -36,15 +36,15 @@ jobs:
              
              az group create --name AKSBicepRg --location EastUS
           
-             az keyvault create --name "MyBicep44Kv" --resource-group "AKSBicepRg" --location "EastUS" --enabled-for-template-deployment=true --enabled-for-disk-encryption --enabled-for-deployment
+             az keyvault create --name "MyBicepKv" --resource-group "AKSBicepRg" --location "EastUS" --enabled-for-template-deployment=true --enabled-for-disk-encryption --enabled-for-deployment
 
-             az keyvault set-policy --name MyBicep44Kv --object-id cb3ad198-df20-47ef-be83-dc4a775a8c46 --secret-permissions get list
+             az keyvault set-policy --name MyBicepKv --object-id cb3ad198-df20-47ef-be83-dc4a775a8c46 --secret-permissions get list
 
              ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
 
-             az keyvault secret set --name bicepsecretName --vault-name MyBicep44Kv --file mySSHKey.pub --encoding base64
+             az keyvault secret set --name bicepsecretName --vault-name MyBicepKv --file mySSHKey.pub --encoding base64
 
-             $sshRSAPublicKey= az keyvault secret show --name bicepsecretName --vault-name MyBicep44Kv --query value -o tsv
+             $sshRSAPublicKey= az keyvault secret show --name bicepsecretName --vault-name MyBicepKv --query value -o tsv
 
              az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep --parameters sshRSAPublicKey="$sshRSAPublicKey"
 
