@@ -32,8 +32,8 @@ jobs:
           creds: ${{ secrets.Azure_Github_Secret_SPN }}
 
       - name: azure deployment
-        working-directory : '{github.workspace}/src/Bicep'
         run: |
+             cd src/Bicep
              az group create --name AKSBicepRg --location EastUS
              az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep
 
