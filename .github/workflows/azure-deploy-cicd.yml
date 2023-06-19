@@ -38,7 +38,8 @@ jobs:
           
              az keyvault create --name MyBicep54Kv --resource-group AKSBicepRg --location EastUS
 
-             cd src/Bicep
+             az keyvault set-policy --name MyBicep54Kv --object-id cb3ad198-df20-47ef-be83-dc4a775a8c46 --secret-permissions get list
+
              ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
 
              az keyvault secret set --name bicepsecretName --vault-name MyBicep54Kv --file mySSHKey.pub --encoding base64
