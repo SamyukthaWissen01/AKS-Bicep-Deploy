@@ -34,8 +34,15 @@ jobs:
       - name: azure deployment
         run: |
              cd src/Bicep
+             ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
+
              az group create --name AKSBicepRg --location EastUS
-             az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep
+             ssh-keygen -t rsa -b 4096 -C "mySSHKey" -f mySSHKey
+             az keyvault create --name MyBicepKv --resource-group AKSBicepRg --location EastUS
+             az keyvault secret set --name bicepsecretName --vault-name MyBicepKv --file mySSHKey.pub --encoding base64
+
+
+             az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep --parameters sshRSAPublicKey = '$SSH'
 
           
    
