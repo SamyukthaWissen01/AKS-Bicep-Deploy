@@ -30,5 +30,12 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.Azure_Github_Secret_SPN }}
+
+      - name: azure deployment
+        working-directory : '{github.workspace}/src/Bicep'
+        run: |
+             az group create --name AKSBicepRg --location EastUS
+             az deployment group create --resource-group AKSBicepRg --template-file ./Azure_AKS.bicep
+
           
    
