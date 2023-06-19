@@ -36,7 +36,7 @@ jobs:
              
              az group create --name AKSBicepRg --location EastUS
           
-             az keyvault create --name MyBicep44Kv --resource-group AKSBicepRg --location EastUS
+             az keyvault create --name "MyBicep44Kv" --resource-group "AKSBicepRg" --location "EastUS" --enabled-for-template-deployment=true --enabled-for-disk-encryption --enabled-for-deployment
 
              az keyvault set-policy --name MyBicep44Kv --object-id cb3ad198-df20-47ef-be83-dc4a775a8c46 --secret-permissions get list
 
